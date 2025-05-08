@@ -1,0 +1,25 @@
+#include <GL/glut.h>
+float x = -1;
+
+void display() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    glColor3f(1,0,0);
+    glRectf(x, -0.1, x + 0.2, 0.1);
+    glFlush();
+}
+
+void timer(int) {
+    x += 0.01;
+    if (x > 1) x = -1;
+    glutPostRedisplay();
+    glutTimerFunc(30, timer, 0);
+}
+
+int main(int a, char** b) {
+    glutInit(&a, b);
+    glutCreateWindow("Anim");
+    glutDisplayFunc(display);
+    glutTimerFunc(0, timer, 0);
+    gluOrtho2D(-1, 1, -1, 1);
+    glutMainLoop();
+}
